@@ -2,6 +2,8 @@ import { APIGatewayEvent } from 'aws-lambda';
 import { CardData, Color } from '../card/card';
 import { Adapter } from './adapter';
 
+const webhookKey = process.env.UPTIME_ROBOT_WEBHOOK_KEY;
+
 interface UptimeRobotData {
   monitorID: string
   monitorURL: string
@@ -18,6 +20,9 @@ const alertToColor: {[key: string]: Color} = {
 
 export const UptimeRobotAdapter: Adapter = {
   async parseRequest(e: APIGatewayEvent) {
+    const { key } = JSON.parse(e.body);
+    if(key !== webhookKey) throw new Error(`Invalid webhook key!`);
+
     const data: UptimeRobotData = e.queryStringParameters as any;
 
     const cardData: CardData = {
