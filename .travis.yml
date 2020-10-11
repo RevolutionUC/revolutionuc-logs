@@ -5,6 +5,8 @@ node_js:
 
 install: npm install
 
-if: branch = master
+if:
+  - branch = master
+  - type = push
 
 script: npm run deploy
