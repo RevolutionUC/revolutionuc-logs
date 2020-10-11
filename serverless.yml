@@ -1,0 +1,22 @@
+service: revolutionuc-logs
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: us-east-2
+
+functions:
+  log:
+    handler: handler.log
+    events:
+      - http:
+          path: /
+          method: post
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-plugin-typescript
+  - serverless-offline
