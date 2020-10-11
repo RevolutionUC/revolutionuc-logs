@@ -7,6 +7,9 @@ provider:
   runtime: nodejs12.x
   stage: prod
   region: us-east-2
+  environment:
+    FLOW_WEBHOOK: ${env:FLOW_WEBHOOK}
+    UPTIME_ROBOT_WEBHOOK_KEY: ${env:UPTIME_ROBOT_WEBHOOK_KEY}
 
 functions:
   log:
