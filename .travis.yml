@@ -8,3 +8,6 @@ install: npm install
 if: branch = master AND type = push
 
 script: npm run deploy
+
+notifications:
+  webhooks: https://a18e32ceb029.ngrok.io/prod?service=travis
