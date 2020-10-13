@@ -1,6 +1,6 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import * as qs from 'querystring';
-import { Color } from '../card/card';
+import { CardData, Color } from '../card/card';
 import { Adapter } from './adapter';
 
 type BuildState = `Pending` | `Passed` | `Fixed` | `Broken` | `Failed` | `Still Failing` | `Canceled` | `Errored`;
@@ -8,7 +8,6 @@ type BuildState = `Pending` | `Passed` | `Fixed` | `Broken` | `Failed` | `Still 
 interface TravisData {
   state: string
   status_message: BuildState
-  result_message: BuildState
   started_at: string
   finished_at: string
   duration: number,
@@ -44,19 +43,23 @@ export const TravisAdapter: Adapter = {
     const body: any = qs.parse(e.body);
     const data: TravisData = JSON.parse(body.payload);
 
-    return {
+    const cardData: CardData = {
       iconUrl: `https://travis-ci.com/images/logos/TravisCI-Mascot-1.png`,
       title: {
         text: `Build ${data.status_message}`,
-        color: stateToColor(data.result_message)
+        color: stateToColor(data.status_message)
       },
       facts: [
         { title: `Repo`, value: `${data.repository.owner_name}/${data.repository.name}` },
         { title: `By`, value: data.committer_name },
-        { title: `Started at`, value: dateToEST(data.started_at) },
-        { title: `Finished at`, value: dateToEST(data.finished_at) },
+        { title: `Started at`, value: dateToEST(data.started_at) }
       ],
       viewUrl: data.build_url
     };
+
+    data.status_message !== 'Pending' &&
+      cardData.facts.push({ title: `Finished `, value: dateToEST(data.finished_at) });
+
+    return cardData;
   }
 }
