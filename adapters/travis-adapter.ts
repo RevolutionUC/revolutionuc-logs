@@ -27,6 +27,8 @@ const stateToColor = (state: BuildState): Color => {
   switch(state) {
     case `Pending`:
       return `accent`;
+    case `Canceled`:
+      return `warning`;
     case `Passed`:
     case `Fixed`:
       return `good`;
@@ -43,7 +45,7 @@ export const TravisAdapter: Adapter = {
     const data: TravisData = JSON.parse(body.payload);
 
     return {
-      iconUrl: `https://cdn.freebiesupply.com/logos/large/2x/travis-ci-icon-logo-png-transparent.png`,
+      iconUrl: `https://travis-ci.com/images/logos/TravisCI-Mascot-1.png`,
       title: {
         text: `Build ${data.status_message}`,
         color: stateToColor(data.result_message)
