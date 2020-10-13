@@ -10,4 +10,11 @@ if: branch = master AND type = push
 script: npm run deploy
 
 notifications:
-  webhooks: https://a18e32ceb029.ngrok.io/prod?service=travis
+  webhooks:
+    urls:
+      - https://a18e32ceb029.ngrok.io/prod?service=travis
+    on_success: always
+    on_failure: always
+    on_start:   always
+    on_cancel:  always
+    on_error:   always
