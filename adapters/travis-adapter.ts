@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
+import * as qs from 'querystring';
 import { Color } from '../card/card';
 import { Adapter } from './adapter';
 
@@ -38,10 +39,11 @@ const dateToEST = input => (new Date(input)).toLocaleString("en-US", { timeZone:
 
 export const TravisAdapter: Adapter = {
   async parseRequest(e: APIGatewayEvent) {
-    const data: TravisData = JSON.parse(e.body);
+    const body: any = qs.parse(e.body);
+    const data: TravisData = JSON.parse(body.payload);
 
     return {
-      iconUrl: `https://secrethub.io/img/travis-ci.svg`,
+      iconUrl: `https://cdn.freebiesupply.com/logos/large/2x/travis-ci-icon-logo-png-transparent.png`,
       title: {
         text: `Build ${data.status_message}`,
         color: stateToColor(data.result_message)
