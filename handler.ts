@@ -1,25 +1,26 @@
-import { APIGatewayEvent, Context, Handler, Callback } from 'aws-lambda';
+import { APIGatewayEvent, Handler } from 'aws-lambda';
 import Axios from 'axios';
 import { getAdapter } from './adapters/adapter';
 import { createCard } from './card/card';
 
 const flowWebhook = process.env.FLOW_WEBHOOK;
 
-export const log: Handler = async (e: APIGatewayEvent, ctx: Context, cb: Callback) => {
+export const log: Handler = async (e: APIGatewayEvent) => {
   try {
-    // get event data and decide which adapter to use
     const { service } = e.queryStringParameters;
 
-    // get the adapter and pass in event data
+    console.log(`Fetching adapter for service ${service}`);
     const adapter = getAdapter(service);
-    console.log(`Sending event data to adpater`);
+    if(!adapter) {
+      throw new Error(`Invalid service string`);
+    }
+
+    console.log(`Sending request data to adpater`);
     const data = await adapter.parseRequest(e);
 
-    // create a card from the data returned by adapter
-    console.log(`Creating card from card data`);
+    console.log(`Creating card from card data titled ${data.title.text}`);
     const card = createCard(data);
 
-    // send card over to teams
     console.log(`Sending card to flow`);
     await Axios({
       url: flowWebhook,
@@ -27,12 +28,13 @@ export const log: Handler = async (e: APIGatewayEvent, ctx: Context, cb: Callbac
       data: { title: data.title.text, card: JSON.stringify(card) }
     });
 
-    // respond with a 200
     console.log(`Returning 200`);
+
     return { statusCode: 200 };
   } catch (err) {
-    // failed authentication
+    console.error(err);
     console.log(`Returning 403`);
-    return { statusCode: 403 };
+
+    return { statusCode: 403, message: err.message };
   }
 };
