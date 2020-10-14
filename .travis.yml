@@ -12,7 +12,7 @@ script: npm run deploy
 notifications:
   webhooks:
     urls:
-      - https://a18e32ceb029.ngrok.io/prod?service=travis
+      - https://logs.revolutionuc.com/post?service=travis
     on_success: always
     on_failure: always
     on_start:   always
