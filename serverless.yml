@@ -12,6 +12,12 @@ provider:
     UPTIME_ROBOT_WEBHOOK_KEY: ${env:UPTIME_ROBOT_WEBHOOK_KEY}
 
 functions:
+  ping:
+    handler: handler.ping
+    events:
+      - http:
+          path: /
+          method: get
   log:
     handler: handler.log
     events:

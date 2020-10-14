@@ -38,3 +38,7 @@ export const log: Handler = async (e: APIGatewayEvent) => {
     return { statusCode: 403, message: err.message };
   }
 };
+
+export const ping: Handler = async (e: APIGatewayEvent) => {
+  return { statusCode: 200, message: `pong` };
+};
