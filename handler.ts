@@ -39,6 +39,6 @@ export const log: Handler = async (e: APIGatewayEvent) => {
   }
 };
 
-export const ping: Handler = async (e: APIGatewayEvent) => {
-  return { statusCode: 200, message: `pong` };
+export const marco: Handler = async (e: APIGatewayEvent) => {
+  return { statusCode: 200, message: `polo` };
 };
