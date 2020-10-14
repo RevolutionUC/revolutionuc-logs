@@ -1,8 +1,8 @@
 import { APIGatewayEvent } from 'aws-lambda';
 import { CardData } from '../card/card';
+import { NetlifyAdapter } from './netlify-adapter';
 import { GithubAdapter } from './github-adapter';
 import { HerokuAdapter } from './heroku-adapter';
-import { NetlifyAdapter } from './netlify-adapter';
 import { TravisAdapter } from './travis-adapter';
 import { UptimeRobotAdapter } from './uptime-robot-adapter';
 
