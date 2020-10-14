@@ -35,10 +35,10 @@ export const log: Handler = async (e: APIGatewayEvent) => {
     console.error(err);
     console.log(`Returning 403`);
 
-    return { statusCode: 403, message: err.message };
+    return { statusCode: 403, body: err.message };
   }
 };
 
 export const marco: Handler = async (e: APIGatewayEvent) => {
-  return { statusCode: 200, message: `polo` };
+  return { statusCode: 200, body: `polo`, };
 };
