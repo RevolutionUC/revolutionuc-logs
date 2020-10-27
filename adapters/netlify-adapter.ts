@@ -24,7 +24,7 @@ export const NetlifyAdapter: Adapter = {
     const data: NetlifyData = JSON.parse(e.body);
 
     return {
-      iconUrl: `https://img.stackshare.io/service/2748/lV55uZMx.png`,
+      iconUrl: `https://assets.revolutionuc.com/logos/netlify.png`,
       title: {
         text: `Site ${data.state}`,
         color: stateToColor[data.state]

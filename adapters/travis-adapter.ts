@@ -44,7 +44,7 @@ export const TravisAdapter: Adapter = {
     const data: TravisData = JSON.parse(body.payload);
 
     const cardData: CardData = {
-      iconUrl: `https://travis-ci.com/images/logos/TravisCI-Mascot-1.png`,
+      iconUrl: `https://assets.revolutionuc.com/logos/travis.png`,
       title: {
         text: `Build ${data.status_message}`,
         color: stateToColor(data.status_message)

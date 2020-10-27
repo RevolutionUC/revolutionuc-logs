@@ -26,7 +26,7 @@ export const HerokuAdapter: Adapter = {
     const { data, actor }: HerokuData = JSON.parse(e.body);
 
     return {
-      iconUrl: `https://ph-files.imgix.net/e70773df-1ac9-4d23-8eed-cebe4d9e1d11?auto=format&auto=compress&codec=mozjpeg&cs=strip`,
+      iconUrl: `https://assets.revolutionuc.com/logos/heroku.png`,
       title: {
         text: `Build ${data.status === `pending` ? `started` : data.status}`,
         color: statusToColor[data.status]

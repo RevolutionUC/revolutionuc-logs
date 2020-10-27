@@ -18,7 +18,7 @@ export const GithubAdapter: Adapter = {
     const data: GithubData = JSON.parse(e.body);
 
     return {
-      iconUrl: `https://cdn.iconscout.com/icon/free/png-256/github-153-675523.png`,
+      iconUrl: `https://assets.revolutionuc.com/logos/github.png`,
       title: {
         text: `Pushed ${data.commits.length} commits`,
         color: `accent`
