@@ -18,7 +18,7 @@ export const RevvitAdapter: Adapter = {
     const data: DailyUpdate = JSON.parse(e.body);
 
     const cardData: CardData = {
-      iconUrl: '',
+      iconUrl: 'https://assets.revolutionuc.com/logos/revvit.png',
       title: {
         text: 'Daily Registration Update',
         color: 'default'
